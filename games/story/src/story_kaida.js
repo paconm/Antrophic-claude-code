@@ -1,0 +1,95 @@
+/* ================= KAIDA · SPARKHAVEN ================= */
+const CH_KA='Prologue · Kaida · The Lightning City';
+Object.assign(SCN,{
+ kai_1:{bg:'city',ch:CH_KA,h:'Sparkhaven Never Sleeps',codex:'voltara',txt:()=>[
+  `From the roof of the old copper mill, Sparkhaven looks like someone spilled a jar of stars. Ten thousand spark-lamps. Airships drifting between the towers. Lightning crawling up the lightning-rods of the Directorate Tower, forty floors high.`,
+  `You've lived on these rooftops since you were nine. You're nineteen now. Running messages. Running parcels. Running from the Wardens.`,
+  `Downstairs, in the room you rent with your last coins, your little brother Nico is coughing again. Spark-lung. Half the kids in the Low Wards have it. The medicine costs more than you make in a month.`,
+  `@Mama Rook: Kaida, love. I've got a job for you. The big one.`,
+  `Mama Rook runs the Wire, the biggest gang in the Low Wards. She's sixty, wears six rings, and has never once been caught.`,
+  `@Mama Rook: A data crystal. Floor forty, Directorate Tower. Five hundred sparks. Enough to buy Nico's medicine for a year.`],
+  c:[{t:'"I\'m in."',s:'For Nico',fx:()=>{bond('rook',1);bond('nico',1)},to:'kai_2'},
+   {t:'"What\'s on the crystal?"',s:'Ask questions first',fx:()=>{stat('ctrl',1);F.asked=1},to:'kai_1b'},
+   {t:'"No. I\'m done stealing."',s:'Try to go straight',fx:()=>{stat('spi',1)},to:'kai_1c'}]},
+ kai_1b:{bg:'city',ch:CH_KA,h:'Questions Cost Extra',txt:()=>[
+  `Mama Rook smiles with all her gold teeth.`,
+  `@Mama Rook: Smart girl. All I know is the buyer pays in Thalassan pearls and wants it bad. And the crystal's from something called "Project Null."`,
+  `@Mama Rook: The Directorate's been busy, love. Airships coming in at night from the north. Big crates. Things in the crates that scratch.`],
+  c:[{t:'Take the job anyway',fx:()=>{bond('nico',1)},to:'kai_2'}]},
+ kai_1c:{bg:'city',ch:CH_KA,h:'Straight',txt:()=>[
+  `You spend three days looking for honest work. The spark-factories want papers you don't have. The airship docks laugh at you.`,
+  `On the third night, Nico coughs blood into his pillow.`,
+  `You go back to Mama Rook. She doesn't even look surprised.`,
+  `@Mama Rook: The job's still there, love. It's always still there.`],
+  c:[{t:'"Floor forty. Tell me how to get in."',fx:()=>{stat('agi',1)},to:'kai_2'}]},
+ kai_2:{bg:'tower',ch:CH_KA,h:'Floor Forty',txt:()=>[
+  `You ride the lightning up the outside of the Directorate Tower. That's your secret: you don't climb. You become a spark, jump along the copper lightning-rods, and reform at the top. It hurts every time.`,
+  `Floor forty is dark and humming. Rows of glass tanks line the walls, filled with green liquid.`,
+  `There are people in the tanks.`,
+  `No. Not people. Grey skin. Holes for eyes. Husks. Dozens of them, wired to copper machines that drink something black out of them and feed it into the city's power lines.`,
+  `A sign on the wall: PROJECT NULL. VOID-SOURCE ENERGY. AUTHORIZED: DIRECTOR H. CORVEN.`],
+  c:[{t:'Grab the crystal and get out',s:'Stick to the job',fx:()=>{stat('agi',1)},to:'kai_2b'},
+   {t:'Use a spark-recorder to capture everything',s:'Evidence',fx:()=>{F.evidence=1;stat('ctrl',1);codex('project')},to:'kai_2b'},
+   {t:'Smash the nearest machine',s:'Someone has to',fx:()=>{F.smashed=1;aff('lightning',2)},to:'kai_2b'}]},
+ kai_2b:{bg:'tower',ch:CH_KA,h:'Alarms',txt:()=>[
+  `You get the crystal: a shard of blue glass the size of your finger, humming with stored lightning.`,
+  F.smashed?`The machine you smashed is spraying sparks everywhere. Every alarm in the tower goes off at once.`:`Then the floor under your foot clicks. A pressure plate. Every alarm in the tower goes off at once.`,
+  `A brass shape unfolds from the ceiling: seven feet tall, a lightning core glowing in its chest. An Arc Warden.`,
+  `@Arc Warden: INTRUDER. SUBMIT FOR DISASSEMBLY.`],
+  c:[{t:'Fight the Warden',fight:'warden',fx:()=>{},to:'kai_3'}]},
+ kai_3:{bg:'city',ch:CH_KA,h:'Rooftop Run',txt:()=>[
+  `You go out the window. Forty floors down. You turn into lightning halfway and hit the copper roof of the Bank of Sparks in a shower of sparks.`,
+  `You run. Rooftops, laundry lines, chimneys. You know this city better than anyone.`,
+  `Except someone is keeping up with you. A young man in a black Directorate coat, crackling with lightning, smiling like this is fun.`,
+  `@Vex Corven: You're fast! I love that. My father's going to want that crystal back, though. And probably your head.`,
+  `Vex Corven. The Director's son. The best hunter the Directorate has.`],
+  c:[{t:'Fight him on the rooftop',fight:'vex',fx:()=>{F.foughtVex=1},to:'kai_3w'},
+   {t:'Jump into the canal',s:'Use your water',fx:()=>{aff('water',3);F.canal=1},to:'kai_3c'}]},
+ kai_3c:{bg:'city',ch:CH_KA,h:'Under the Water',txt:()=>[
+  `You dive into the black canal. Vex skids to a stop on the edge. Lightning and water: he can't follow you without electrocuting himself.`,
+  `But you can. Your mother came from Thalassa. Water's always liked you.`,
+  `You swim a mile underwater, wrapped in a bubble of air you pulled from the canal itself, and come up under the Low Wards bridge.`,
+  `Vex's voice echoes across the water: "I'll find you, little spark! I always do!"`],
+  c:[{t:'Run home',fx:()=>{xp(30)},to:'kai_4'}]},
+ kai_3w:{bg:'city',ch:CH_KA,h:'He\'s Still Smiling',txt:()=>[
+  `Vex goes down on one knee, smoking. And he laughs.`,
+  `@Vex Corven: Okay. Okay! You're good. Keep the crystal for now. It's more fun this way.`,
+  `He salutes you with two fingers and lets himself fall off the roof. By the time you look over the edge, he's gone.`],
+  c:[{t:'Run home',fx:()=>{bond('vex',1)},to:'kai_4'}]},
+ kai_4:{bg:'city',ch:CH_KA,h:'Betrayal',txt:()=>[
+  `Mama Rook is waiting in your room. Nico is on the bed, asleep. Two of her biggest men are standing over him.`,
+  `@Mama Rook: The crystal, love.`,
+  `@You: Why are they standing next to my brother?`,
+  `@Mama Rook: Because the buyer called. Turns out he wants the girl who can ride lightning, too. Pays triple. A man in a silver cloak.`,
+  `She holds out her hand.`],
+  c:[{t:'Give her the crystal. Get Nico out.',s:'Lose the evidence',fx:()=>{F.crystal=0;bond('nico',2)},to:'kai_4b'},
+   {t:'Lightning-flash the room. Grab Nico and run.',s:'Keep everything',fx:()=>{F.crystal=1;stat('agi',1);aff('lightning',2)},to:'kai_4b'},
+   {t:'"Play the crystal. You should see what\'s on it."',s:'Try to turn her',req:()=>F.evidence||F.asked,lock:'Needs: recorded evidence or asked questions',fx:()=>{F.crystal=1;F.rookAlly=1;bond('rook',2)},to:'kai_4c'}]},
+ kai_4c:{bg:'city',ch:CH_KA,h:'What\'s on the Crystal',txt:()=>[
+  `You make the crystal play. It projects a flickering image into the room: Director Hale Corven, standing in the tank room, shaking hands with a tall man in a silver cloak.`,
+  `@Silver Cloak (recording): The Rite of Renewal is in three months. When the seals weaken, the Directorate will have all the Void it can drink.`,
+  `@Director Corven (recording): And Voltara will finally rule the six.`,
+  `Mama Rook stares at it for a long time. Then she tells her men to step away from Nico.`,
+  `@Mama Rook: I've done a lot of bad things, love. I won't sell out the whole world. Go. I'll get Nico on a Thalassan ship tonight. My cousin owes me.`],
+  c:[{t:'"Thank you, Rook."',fx:()=>{bond('rook',2)},to:'kai_5'}]},
+ kai_4b:{bg:'city',ch:CH_KA,h:'Nico',txt:()=>[
+  F.crystal?`The flash blinds everyone. You grab Nico, who's half-asleep and burning with fever, and go out the window.`:`You hand it over. Mama Rook nods. Her men step back. You grab Nico and walk out the front door, and you don't look back.`,
+  `You get him to the Thalassan docks before dawn. A ship captain owes your mother an old debt. She'll take him to the Tide Courts, where the water-healers can fix his lungs.`,
+  `@Nico: Kai? Where are you going?`,
+  `@You: Somewhere they can't find me. Somewhere I can fix this.`],
+  c:[{t:'"I\'ll come get you. I promise."',fx:()=>{bond('nico',2)},to:'kai_5'}]},
+ kai_5:{bg:'sky',ch:CH_KA,h:'Stowaway',codex:'arcanum',txt:()=>[
+  `There's only one place in the world the Directorate can't touch you: Arcanum Academy. Neutral ground. And the Rite of Renewal, where every nation's leader will be in one room.`,
+  `You forge entrance-exam papers with a stolen Directorate seal and stow away on an airship heading west.`,
+  `On the first night, in the cargo hold between crates of spark-coils, the lightning in your blood starts to scream. It pours out of you. The whole ship's lights flicker.`,
+  `And for a heartbeat you see it: a dragon made entirely of lightning, coiled around the moon, watching you.`,
+  `@???: Thief of storms. Choose what you will steal from the sky.`,
+  `#AWAKENING I · Your core has kindled. Choose a Trait.`],
+  c:()=>traitChoices('kai_6')},
+ kai_6:{bg:'academy',ch:CH_KA,h:'Arcanum',txt:()=>[
+  `Arcanum floats above the Lake of Seven, all towers and banners and students from rich families who've never been hungry a day in their lives.`,
+  `You tug your stolen uniform straight. ${F.crystal?'The crystal is sewn into your collar.':'You don\'t have the crystal anymore. Just your memory of what was in those tanks.'}`,
+  `Somewhere in this academy is the man in the silver cloak. You're going to find him.`,
+  `#Prologue complete. Your story is about to merge with others.`],
+  c:[{t:'Step onto the skyport',fx:()=>{xp(30)},to:'arc_1'}]}
+});

@@ -1,0 +1,14 @@
+{
+  "name": "the-seven-crowns",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "The Seven Crowns: a fantasy RPG with a story game and a 3D chapter (Awakening).",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "serve": "node tools/serve.mjs",
+    "dev": "node tools/build.mjs && node tools/serve.mjs",
+    "start": "npm run dev"
+  },
+  "engines": { "node": ">=18" }
+}
