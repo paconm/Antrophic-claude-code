@@ -7,3 +7,7 @@ ios/
 .env
 *.keystore
 *.jks
+
+# third-party reference clips and extracted frames
+reference/*.mp4
+reference/frames/
